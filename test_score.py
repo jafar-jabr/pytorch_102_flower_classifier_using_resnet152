@@ -5,7 +5,7 @@ from torchvision import models
 
 
 def load_model(checkpoint_path):
-    model = models.resnet152(pretrained=False)
+    model = models.resnet152(pretrained=True)
     classifier = nn.Sequential(OrderedDict([
         ("dropout", nn.Dropout(0.2)),
         ("fc1", nn.Linear(2048, 512)),
@@ -17,7 +17,6 @@ def load_model(checkpoint_path):
     model.fc = classifier
     check_point = torch.load(checkpoint_path, map_location="cpu")
     model.load_state_dict(check_point["state_dict"], strict=False)
-    model.class_to_idx = check_point["class_to_idx"]
     for param in model.parameters():
         param.requires_grad = False
     model.eval()
