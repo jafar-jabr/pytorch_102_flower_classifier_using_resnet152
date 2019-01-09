@@ -9,6 +9,7 @@ def load_model(checkpoint_path):
     classifier = nn.Sequential(OrderedDict([
         ("dropout", nn.Dropout(0.2)),
         ("fc1", nn.Linear(2048, 512)),
+        ('batchM1',nn.BatchNorm1d(512)),
         ("relu1", nn.ReLU()),
         ("dropout2", nn.Dropout(0.2)),
         ("fc2", nn.Linear(512, 102)),
